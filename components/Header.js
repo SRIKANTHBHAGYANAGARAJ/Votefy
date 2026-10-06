@@ -1,0 +1,102 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import styles from "./header.module.css";
+
+export default function Header() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = async () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    router.push("/login");
+  };
+
+  const navigateToCreateEnquete = () => {
+    router.push("/create");
+  };
+
+  const enquetesDoUsuario = () => {
+    router.push("/usuario_enquetes");
+  };
+
+  const dashboardEnquetes = () => {
+    router.push("/enquetes")
+  };
+
+  return (
+    <header className={styles.header}>
+      <div className={styles.logo}>
+        <Link href="/" passHref>
+          <img src="/img/logo/logo.png" alt="Logo" />
+        </Link>
+      </div>
+
+      <div className={styles.fields}>
+        {isLoggedIn ? (
+          <>
+            <a
+              href="/dashboard-enquetes"
+              title="Dashboard"
+              className={styles.link}
+              onClick={(e) => {
+                e.preventDefault();
+                dashboardEnquetes();
+              }}
+            >
+              Dashboard
+            </a>
+            <a
+              href="/criar-enquete"
+              title="Criar Enquete"
+              className={styles.link}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateToCreateEnquete();
+              }}
+            >
+              Criar Enquete
+            </a>
+            <a href="/enquetes-usuario" title="Suas Enquetes" className={styles.link} onClick={(e) => {
+              e.preventDefault();
+              enquetesDoUsuario();
+            }}>
+              Suas Enquetes
+            </a>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={() => router.push("/login")}
+              className={`${styles.authButton} ${styles.loginButton}`}
+            >
+              Login
+            </button>
+            <button
+              onClick={() => router.push("/register")}
+              className={`${styles.authButton} ${styles.registerButton}`}
+            >
+              Registro
+            </button>
+          </>
+        )}
+      </div>
+
+      {isLoggedIn && (
+        <div className={styles.logout}>
+          <button onClick={handleLogout} className={styles.logoutBtn}>
+            Sair
+          </button>
+        </div>
+      )}
+    </header>
+  );
+}
