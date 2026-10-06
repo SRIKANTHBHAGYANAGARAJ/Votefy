@@ -1,0 +1,44 @@
+/* page.module.css */
+.carouselImg {
+    height: 400px;
+    /* Ajuste para manter as imagens do carrossel do mesmo tamanho */
+    object-fit: cover;
+}
+
+.carouselTitle {
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.main {
+    padding: 2rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.btn-primary {
+    background-color: #0070f3;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #005bb5;
+}
